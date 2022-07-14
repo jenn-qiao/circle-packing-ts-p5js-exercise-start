@@ -8,16 +8,34 @@ function draw() {
 
   const circlesArray = calculatePackedCircles(width, height);
 
-  for (const c of circlesArray) {
+  const orderedRadii = circlesArray.sort((a: Circle, b: Circle) => b.radius - a.radius)
+
+  
+  for (let i=2; i < orderedRadii.length; i++) {
+    const c: Circle = orderedRadii[i]
     drawCircle(c);
   }
 }
 
+const palette = [
+  "#ecd078",
+  "#d95b43",
+  "#c02942",
+  "#542437",
+  "#53777a"
+]
+
+
+
 function drawCircle(c: Circle) {
   const shade = random(50, 100);
-  fill(shade);
+  fill(random(palette));
   noStroke();
-  circle(c.pos.x, c.pos.y, c.radius * 2);
+
+  if (c.radius < 20) {
+    circle(c.pos.x, c.pos.y, c.radius * 2);
+  }
+  
 }
 
 // If user clicks, draw() will be called again (eventually)
